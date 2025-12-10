@@ -1671,209 +1671,268 @@ audits.
       }
 
       generateResumePDF() {
-        const { jsPDF } = window.jspdf;
-        
-        if (!jsPDF) {
-          alert('PDF generation library not loaded. Please check your connection.');
-          return;
-        }
+  const { jsPDF } = window.jspdf;
 
-        const doc = new jsPDF({
-          orientation: 'portrait',
-          unit: 'mm',
-          format: 'a4'
-        });
+  if (!jsPDF) {
+    alert('PDF generation library not loaded. Please check your connection.');
+    return;
+  }
 
-        doc.setProperties({
-          title: 'Bhargav - Resume',
-          subject: 'Computer Science Portfolio',
-          author: 'Ramagiri Vardhan',
-          keywords: 'resume, portfolio, computer science, software engineering',
-          creator: 'Portfolio Website'
-        });
+  const doc = new jsPDF({
+    orientation: 'portrait',
+    unit: 'mm',
+    format: 'a4'
+  });
 
-        const primaryColor = [10, 25, 47];
-        const accentColor = [100, 255, 218];
-        const textColor = [136, 146, 176];
+  doc.setProperties({
+    title: 'Anagani Bhargav Gopi - Resume',
+    subject: 'Computer Science Portfolio',
+    author: 'Anagani Bhargav Gopi',
+    keywords: 'resume, portfolio, computer science, software engineering',
+    creator: 'Portfolio Website'
+  });
 
-        doc.setFillColor(...primaryColor);
-        doc.rect(0, 0, 210, 50, 'F');
-        
-        doc.setTextColor(255, 255, 255);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(24);
-        doc.text('RAMAGIRI VARDHAN', 20, 25);
-        
-        doc.setTextColor(...accentColor);
-        doc.setFontSize(12);
-        doc.text('Computer Science & Engineering Student', 20, 32);
-        
-        doc.setTextColor(...textColor);
-        doc.setFontSize(10);
-        doc.text('VIT-AP University | your.email@example.com | +91 98765 43210', 20, 40);
-        
-        doc.setDrawColor(...accentColor);
-        doc.setLineWidth(0.5);
-        doc.line(20, 45, 190, 45);
+  const primaryColor = [10, 25, 47];
+  const accentColor = [100, 255, 218];
+  const textColor = [136, 146, 176];
 
-        let yPosition = 60;
+  // Header
+  doc.setFillColor(...primaryColor);
+  doc.rect(0, 0, 210, 50, 'F');
 
-        doc.setTextColor(...primaryColor);
-        doc.setFontSize(14);
-        doc.setFont('helvetica', 'bold');
-        doc.text('EDUCATION', 20, yPosition);
-        
-        doc.setTextColor(...textColor);
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'normal');
-        yPosition += 8;
-        doc.text('Vellore Institute of Technology, AP', 20, yPosition);
-        yPosition += 5;
-        doc.text('Bachelor of Technology in Computer Science & Engineering', 20, yPosition);
-        yPosition += 5;
-        doc.text('Expected Graduation: 2025 | CGPA: 8.5/10', 20, yPosition);
-        yPosition += 15;
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(24);
+  doc.text('ANAGANI BHARGAV GOPI', 20, 25);
 
-        doc.setTextColor(...primaryColor);
-        doc.setFontSize(14);
-        doc.setFont('helvetica', 'bold');
-        doc.text('TECHNICAL SKILLS', 20, yPosition);
-        
-        doc.setTextColor(...textColor);
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'normal');
-        yPosition += 8;
-        
-        const skills = {
-          'Languages': 'Python, Java, JavaScript, C++, SQL',
-          'Web Development': 'React, Node.js, Express, MongoDB, REST APIs',
-          'Machine Learning': 'TensorFlow, PyTorch, Scikit-learn, NLP, Computer Vision',
-          'Tools & Technologies': 'Git, Docker, Linux, AWS, PostgreSQL'
-        };
+  doc.setTextColor(...accentColor);
+  doc.setFontSize(12);
+  doc.text('BTech Computer Science Student', 20, 32);
 
-        Object.entries(skills).forEach(([category, skillsList]) => {
-          doc.text(`${category}:`, 20, yPosition);
-          doc.text(skillsList, 60, yPosition);
-          yPosition += 6;
-        });
+  doc.setTextColor(...textColor);
+  doc.setFontSize(10);
+  doc.text('+91 8978470246 | bhargavgopi05@gmail.com | LinkedIn | LeetCode', 20, 40);
+  doc.text('Repalle, Andhra Pradesh', 20, 45);
 
-        yPosition += 10;
+  doc.setDrawColor(...accentColor);
+  doc.setLineWidth(0.5);
+  doc.line(20, 50, 190, 50);
 
-        doc.setTextColor(...primaryColor);
-        doc.setFontSize(14);
-        doc.setFont('helvetica', 'bold');
-        doc.text('PROJECTS', 20, yPosition);
-        
-        doc.setTextColor(...textColor);
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'normal');
-        yPosition += 8;
+  let yPosition = 60;
 
-        const projects = [
-          {
-            name: 'GreenBridge Plant Marketplace',
-            description: 'Full-stack MERN e-commerce platform with secure payments, user sessions, and admin dashboard.',
-            tech: 'React, Node.js, MongoDB, Express, Stripe API'
-          },
-          {
-            name: 'Emotion-Based Music Player',
-            description: 'AI-powered music recommendation system using BERT for emotion detection and Spotify API integration.',
-            tech: 'Python, BERT, React, Spotify API, NLP'
-          },
-          {
-            name: 'BERT Emotion Classifier',
-            description: 'Fine-tuned transformer model for emotion classification with active learning pipeline.',
-            tech: 'PyTorch, Transformers, FastAPI, Docker'
-          }
-        ];
+  // PROFILE
+  doc.setTextColor(...primaryColor);
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text('PROFILE', 20, yPosition);
 
-        projects.forEach(project => {
-          doc.setFont('helvetica', 'bold');
-          doc.text(project.name, 20, yPosition);
-          yPosition += 5;
-          
-          doc.setFont('helvetica', 'normal');
-          doc.text(project.description, 20, yPosition, { maxWidth: 170 });
-          yPosition += 10;
-          
-          doc.setTextColor(...accentColor);
-          doc.text(`Tech: ${project.tech}`, 20, yPosition);
-          yPosition += 8;
-          
-          doc.setTextColor(...textColor);
-        });
+  doc.setTextColor(...textColor);
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  yPosition += 8;
+  doc.text('BTech Computer Science student at VIT–AP with strong skills in Java, Python, and web technologies.', 20, yPosition, { maxWidth: 170 });
+  yPosition += 5;
+  doc.text('Experienced in accessibility, frontend projects, and cloud tools, seeking a Software Engineer Intern role.', 20, yPosition, { maxWidth: 170 });
+  yPosition += 5;
+  doc.text('to apply technical expertise and deliver scalable solutions.', 20, yPosition, { maxWidth: 170 });
+  yPosition += 10;
 
-        doc.setTextColor(...primaryColor);
-        doc.setFontSize(14);
-        doc.setFont('helvetica', 'bold');
-        doc.text('CODING PLATFORMS', 20, yPosition);
-        
-        doc.setTextColor(...textColor);
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'normal');
-        yPosition += 8;
-        
-        const platforms = [
-          'LeetCode: 300+ problems solved, 150+ medium, 100+ hard',
-          'CodeChef: 3-star coder, 500+ problems solved, 1750+ rating',
-          'HackerRank: 5-star gold badges in Python and Problem Solving'
-        ];
+  // SKILLS
+  doc.setTextColor(...primaryColor);
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text('SKILLS', 20, yPosition);
 
-        platforms.forEach(platform => {
-          doc.text(platform, 20, yPosition, { maxWidth: 170 });
-          yPosition += 6;
-        });
+  doc.setTextColor(...textColor);
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  yPosition += 8;
 
-        yPosition += 10;
+  const skills = {
+    'Programming Languages': 'Java, Python, JavaScript',
+    'Web Technologies': 'HTML, CSS',
+    'Database Systems': 'SQL, DBMS',
+    'Core Subjects': 'OOP, Software Engineering, DSA',
+    'Mathematical & Statistical Tools': 'MATLAB, Excel',
+    'Research Skills': 'Planning, Analytical Thinking, Problem Solving, Communication'
+  };
 
-        doc.setTextColor(...primaryColor);
-        doc.setFontSize(14);
-        doc.setFont('helvetica', 'bold');
-        doc.text('EXPERIENCE', 20, yPosition);
-        
-        doc.setTextColor(...textColor);
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'normal');
-        yPosition += 8;
-        
-        const experiences = [
-          {
-            role: 'Backend Development Intern',
-            company: 'XYZ Tech',
-            period: 'Summer 2024',
-            description: 'Developed high-performance REST APIs, optimized database queries (40% improvement), implemented comprehensive testing.'
-          },
-          {
-            role: 'Research Assistant',
-            company: 'ABC Research Lab',
-            period: '2023-Present',
-            description: 'NLP research focusing on emotion detection, dataset curation, and multimodal emotion recognition.'
-          }
-        ];
+  Object.entries(skills).forEach(([category, skillsList]) => {
+    doc.text(`${category}:`, 20, yPosition);
+    doc.text(skillsList, 60, yPosition);
+    yPosition += 6;
+  });
 
-        experiences.forEach(exp => {
-          doc.setFont('helvetica', 'bold');
-          doc.text(`${exp.role} | ${exp.company}`, 20, yPosition);
-          yPosition += 5;
-          
-          doc.setFont('helvetica', 'italic');
-          doc.text(exp.period, 20, yPosition);
-          yPosition += 5;
-          
-          doc.setFont('helvetica', 'normal');
-          doc.text(exp.description, 20, yPosition, { maxWidth: 170 });
-          yPosition += 15;
-        });
+  yPosition += 10;
 
-        const pageHeight = doc.internal.pageSize.height;
-        doc.setTextColor(...textColor);
-        doc.setFontSize(8);
-        doc.text('Generated from portfolio.ramagirivardhan.com | Last updated: ' + new Date().toLocaleDateString(), 20, pageHeight - 10);
+  // EXPERIENCE
+  doc.setTextColor(...primaryColor);
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text('EXPERIENCE', 20, yPosition);
 
-        doc.save('Ramagiri_Vardhan_Resume.pdf');
-        
-        this.showNotification('Resume downloaded successfully!');
-      }
+  doc.setTextColor(...textColor);
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  yPosition += 8;
+
+  const experiences = [
+    {
+      role: 'Content Operations Intern',
+      company: 'PRGeeq, Bangalore, India',
+      period: 'May 2025 - Jul 2025',
+      description: 'Authored 15+ accessibility-focused documents, copy-edited 50+ client deliverables with perfect accuracy, and created 100+ descriptive Alt Text for marketing images.'
+    }
+  ];
+
+  experiences.forEach(exp => {
+    doc.setFont('helvetica', 'bold');
+    doc.text(`${exp.role} | ${exp.company}`, 20, yPosition);
+    yPosition += 5;
+
+    doc.setFont('helvetica', 'italic');
+    doc.text(exp.period, 20, yPosition);
+    yPosition += 5;
+
+    doc.setFont('helvetica', 'normal');
+    doc.text(exp.description, 20, yPosition, { maxWidth: 170 });
+    yPosition += 12;
+  });
+
+  // PROJECTS
+  doc.setTextColor(...primaryColor);
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text('PROJECTS', 20, yPosition);
+  yPosition += 8;
+
+  const projects = [
+    {
+      name: 'Lost & Found Portal – College Item Tracker',
+      description: 'Engineered a secure portal for students to report, track, and manage lost or found items. Enabled users to create, update, and remove their posts. Configured token-based authentication and automated email notifications. Streamlined dynamic single-page interface.',
+      tech: 'Full-Stack Development'
+    },
+    {
+      name: 'Calm Connect – Friendly Health Chatbot',
+      description: 'Built a mental health chatbot enabling interactive conversations for stress and anxiety support. Designed dynamic responses and self-care tips using JavaScript form handling.',
+      tech: 'HTML, CSS, JavaScript'
+    },
+    {
+      name: 'Tic-Tac-Toe Game',
+      description: 'Developed a browser-based Tic-Tac-Toe game with responsive UI and score tracking. Implemented grid logic and collision detection for smooth player interaction.',
+      tech: 'HTML, CSS, JavaScript'
+    },
+    {
+      name: 'College VTOP Website – Clone',
+      description: 'Cloned college portal with responsive UI for students, faculty, alumni, and parents. Applied semantic HTML and accessibility best practices.',
+      tech: 'HTML, CSS, JavaScript'
+    }
+  ];
+
+  projects.forEach(project => {
+    doc.setFont('helvetica', 'bold');
+    doc.text(project.name, 20, yPosition);
+    yPosition += 5;
+
+    doc.setFont('helvetica', 'normal');
+    doc.text(project.description, 20, yPosition, { maxWidth: 170 });
+    yPosition += 10;
+
+    doc.setTextColor(...accentColor);
+    doc.text(`Tools: ${project.tech}`, 20, yPosition);
+    yPosition += 8;
+
+    doc.setTextColor(...textColor);
+  });
+
+  // EDUCATION
+  doc.setTextColor(...primaryColor);
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text('EDUCATION', 20, yPosition);
+  yPosition += 8;
+
+  const education = [
+    {
+      degree: 'BTech - Computer Science & Engineering',
+      institution: 'VIT-AP University, Amaravati, Andhra Pradesh',
+      period: 'Sep 2023 - Mar 2027',
+      details: 'GPA: 8.49/10.0'
+    },
+    {
+      degree: 'Intermediate',
+      institution: 'NRI Junior College, Tenali, Andhra Pradesh',
+      period: 'April 2023',
+      details: 'Grade: 97.3%'
+    },
+    {
+      degree: 'Secondary Education',
+      institution: 'Government High School, Repalle, Andhra Pradesh',
+      period: 'May 2021',
+      details: 'GPA: 10/10'
+    }
+  ];
+
+  education.forEach(edu => {
+    doc.setFont('helvetica', 'bold');
+    doc.text(`${edu.degree} | ${edu.institution}`, 20, yPosition);
+    yPosition += 5;
+
+    doc.setFont('helvetica', 'italic');
+    doc.text(edu.period, 20, yPosition);
+    yPosition += 5;
+
+    doc.setFont('helvetica', 'normal');
+    doc.text(edu.details, 20, yPosition);
+    yPosition += 10;
+  });
+
+  // CERTIFICATIONS
+  doc.setTextColor(...primaryColor);
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text('CERTIFICATIONS', 20, yPosition);
+  yPosition += 8;
+
+  const certifications = [
+    'Microsoft: Azure AI Engineer Associate (07/2025)',
+    'HackerRank: Python Basic (07/2024)',
+    'Wadhwani Foundation: IGNITE 3.4 (04/2025)',
+    'MathWorks: MATLAB (10/2023)',
+    'Udemy: Web Development (11/2024)'
+  ];
+
+  certifications.forEach(cert => {
+    doc.text(cert, 20, yPosition, { maxWidth: 170 });
+    yPosition += 6;
+  });
+
+  // ADDITIONAL INFORMATION
+  yPosition += 8;
+  doc.setTextColor(...primaryColor);
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text('ADDITIONAL INFORMATION', 20, yPosition);
+  yPosition += 8;
+
+  doc.setTextColor(...textColor);
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  doc.text('Languages: English (Proficient), Telugu (Proficient), Hindi (Intermediate)', 20, yPosition, { maxWidth: 170 });
+  yPosition += 6;
+  doc.text('Interests: Cricket, Books, Music', 20, yPosition, { maxWidth: 170 });
+
+  // Footer
+  const pageHeight = doc.internal.pageSize.height;
+  doc.setTextColor(...textColor);
+  doc.setFontSize(8);
+  doc.text('Generated from portfolio.ramagirivardhan.com | Last updated: ' + new Date().toLocaleDateString(), 20, pageHeight - 10);
+
+  doc.save('Anagani_Bhargav_Gopi_Resume.pdf');
+
+  this.showNotification('Resume downloaded successfully!');
+}
+
 
       showNotification(message) {
         const notification = document.createElement('div');
